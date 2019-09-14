@@ -6,13 +6,13 @@ echo ${inputArray[@]}
 j=0
 while [ $j -lt ${#inputArray[@]} ]
     do
-        echo "${inputArray[$j]}"
+        echo "$j Iteration -> ${inputArray[@]}"
         variableA=${inputArray[$j]}
         variableB=${inputArray[$j]}
         i=$(expr $j + 1)
         while [ $i -lt ${#inputArray[@]} ]
             do
-                echo " $variableA -lt ${inputArray[$i]} "
+                echo "$j Iteration -> $i Sub iteration -> ${inputArray[@]}"
                 if [[ $variableA -lt ${inputArray[$i]} ]] # double bracket drving from Bash
                 then
                     variableB=$variableA
