@@ -1,11 +1,12 @@
 #! /bin/bash
 
 merge(){
-    local array=$1
-    local p=$2
-    local q=$3
-    local r=$4
-    echo "$array $p $q $r"
+    local p=$1
+    local q=$2
+    local r=$3
+    local array=(${@:4})
+    echo "merge -> ${array[@]} 
+    $p $q $r"
 }
 
 
@@ -13,16 +14,16 @@ mergeSort(){
     local p=$1
     local r=$2
     local localArray=(${@:3})
-    echo "-> 
-            ${localArray[@]}
-            $p
-            $r
-            ${#localArray[@]}"
-    if [ ${#localArray[@]} -gt 2 ]
+    local diff=$(expr $r - $p)
+    echo $diff
+    if [ $diff -gt 0 ]
     then
-        echo 'more than 2'
+        q=$(expr $(expr $r + $p) / 2)
+        mergeSort $p $q $localArray
+        mergeSort $(expr $q + 1) $r $localArray
+        merge $p $q $r $localArray
     else
-        echo 'less than 2'
+        return
     fi    
 }
 
