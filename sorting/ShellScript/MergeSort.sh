@@ -4,7 +4,9 @@ merge(){
     local p=$1
     local q=$2
     local r=$3
-    echo "merge  p -> $p : q -> $q : r -> $r "
+    local leftArray=${inputArray[@]:$p:$q}
+    local rightArray=${inputArray[@]:$q:$r}
+    echo "merge  p -> $p : q -> $q : r -> $r : leftArray -> ${leftArray[@]} : rightArray -> ${rightArray[@]}"
 }
 
 
@@ -14,8 +16,8 @@ mergeSort(){
     local diff=$(expr $r - $p)
     if [ $diff -gt 1 ]
     then
-        q=$(expr $(expr $r + $p) / 2)
-        qNext=$(expr $q  + 1)
+        local q=$(expr $(expr $r + $p) / 2)
+        local qNext=$(expr $q  + 1)
         echo "mergesort -> p-> $p : q -> $q : qNext -> $qNext  : r -> $r | ${inputArray[$r]} : array -> ${inputArray[@]}"
         mergeSort $p $q
         mergeSort $qNext $r
