@@ -4,8 +4,8 @@ merge(){
     local p=$1
     local q=$2
     local r=$3
-    local leftArray=${inputArray[@]:$p:$q}
-    local rightArray=${inputArray[@]:$q:$r}
+    local leftArray=${inputArray[@]:$p:$(expr $q - $p)}
+    local rightArray=${inputArray[@]:$q:$(expr $(expr $r - $q) + 1)}
     echo "merge  p -> $p : q -> $q : r -> $r : leftArray -> ${leftArray[@]} : rightArray -> ${rightArray[@]}"
 }
 
