@@ -6,7 +6,23 @@ merge(){
     local r=$3
     local leftArray=${inputArray[@]:$p:$(expr $q - $p)}
     local rightArray=${inputArray[@]:$q:$(expr $(expr $r - $q) + 1)}
-    echo "merge  p -> $p : q -> $q : r -> $r : leftArray -> ${leftArray[@]} : rightArray -> ${rightArray[@]}"
+    local i=$p
+    local j=$q
+    local k=$p
+    while [[ $k -lt $r ]]
+        do
+            if [[ ${leftArray[i]} -gt ${rightArray[j]} ]]
+            then
+                inputArray[k]=${leftArray[i]}
+                i=$(expr $i + 1)
+                k=$(expr $k + 1)
+            else 
+                inputArray[k]=${rightArray[j]}
+                j=$(expr $j + 1)
+                k=$(expr $k + 1)    
+            fi
+        done
+    echo "merge  p -> $p : q -> $q : r -> $r : leftArray -> ${leftArray[@]} : rightArray -> ${rightArray[@]} : inputarray -> ${inputArray[@]}"
 }
 
 
