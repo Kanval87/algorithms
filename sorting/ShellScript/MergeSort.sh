@@ -4,14 +4,15 @@ merge(){
     local p=$1
     local q=$2
     local r=$3
-    local leftArray=${inputArray[@]:$p:$(expr $q - $p)}
-    local rightArray=${inputArray[@]:$q:$(expr $(expr $r - $q) + 1)}
-    local i=$p
-    local j=$q
+    local leftArray=(${inputArray[@]:$p:$(expr $q - $p)})
+    local rightArray=(${inputArray[@]:$q:$(expr $(expr $r - $q) + 1)})
+    local i=0
+    local j=0
     local k=$p
     while [[ $k -lt $r ]]
         do
-            if [[ ${leftArray[i]} -gt ${rightArray[j]} ]]
+            echo " i -> $i : j -> $j : leftArray[i] -> ${leftArray[i]} : rightArray[j] -> ${rightArray[j]} : inputArray[@] -> ${inputArray[@]}"
+            if [[  ${leftArray[i]} -gt ${rightArray[j]} ]]
             then
                 inputArray[k]=${leftArray[i]}
                 i=$(expr $i + 1)
@@ -47,4 +48,3 @@ mergeSort(){
 
 inputArray=(1 2 3 4 5 6)
 mergeSort  0 $(expr ${#inputArray[@]} - 1)
-
