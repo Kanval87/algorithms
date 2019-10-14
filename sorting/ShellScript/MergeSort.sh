@@ -11,7 +11,7 @@ merge(){
     local k=$p
     while [[ $k -lt $r ]]
         do
-            echo " i -> $i : j -> $j : leftArray[i] -> ${leftArray[i]} : rightArray[j] -> ${rightArray[j]} : inputArray[@] -> ${inputArray[@]}"
+            echo "merge 1. i -> $i : j -> $j : leftArray[i] -> ${leftArray[i]} : rightArray[j] -> ${rightArray[j]} : inputArray[@] -> ${inputArray[@]}"
             if [[  ${leftArray[i]} -gt ${rightArray[j]} ]]
             then
                 inputArray[k]=${leftArray[i]}
@@ -23,7 +23,7 @@ merge(){
                 k=$(expr $k + 1)    
             fi
         done
-    echo "merge  p -> $p : q -> $q : r -> $r : leftArray -> ${leftArray[@]} : rightArray -> ${rightArray[@]} : inputarray -> ${inputArray[@]}"
+    echo "merge 2.  p -> $p : q -> $q : r -> $r : leftArray -> ${leftArray[@]} : rightArray -> ${rightArray[@]} : inputarray -> ${inputArray[@]}"
 }
 
 
@@ -31,16 +31,17 @@ mergeSort(){
     local p=$1
     local r=$2
     local diff=$(expr $r - $p)
-    if [ $diff -gt 1 ]
+    echo "mergesort 1. -> p-> $p  : r -> $r : diff -> $diff"
+    if [ $diff -ge 1 ]
     then
         local q=$(expr $(expr $r + $p) / 2)
         local qNext=$(expr $q  + 1)
-        echo "mergesort -> p-> $p : q -> $q : qNext -> $qNext  : r -> $r | ${inputArray[$r]} : array -> ${inputArray[@]}"
+        echo "mergesort 2. -> p-> $p : q -> $q : qNext -> $qNext  : r -> $r | ${inputArray[$r]} : array -> ${inputArray[@]}"
         mergeSort $p $q
         mergeSort $qNext $r
         merge $p $q $r
     else
-        echo "return mergesort -> p-> $p  : r -> $r : array -> ${inputArray[@]}"
+        echo "return mergesort 2. -> p-> $p  : r -> $r : array -> ${inputArray[@]}"
         return
     fi    
 }
