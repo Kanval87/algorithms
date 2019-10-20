@@ -1,11 +1,21 @@
 package kotlinCode
 
 import kotlin.text.*
+import java.util.Random
 import java.util.Arrays
 import java.util.Scanner
 
 fun main() {
-    val inputArray = arrayOf(1, 2, 3, 4, 5, 6)
+    val arrays : Array<IntArray> = arrayOf(
+        intArrayOf(1, 2, 3, 4, 5, 6),
+        intArrayOf(7, 2, 3, 8, 5, 6),
+        intArrayOf(9, 4, 2, 4, 5, 6),
+        intArrayOf(11, 12, 63, 74, 51, 62),
+        intArrayOf(3, 2, 1, 4, 5, 6),
+        intArrayOf(7, 2, 8, 10, 5, 6)
+    )
+    
+    val inputArray = arrays[2]
     println("""Enter 1 for Insertion Sort
 Enter 2 for Selection Sort
 Enter 3 for Merge Sort
