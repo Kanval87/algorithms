@@ -1,4 +1,4 @@
-package kotlinCode
+package sorting.kotlinCode
 
 import kotlin.text.*
 import java.util.Random
