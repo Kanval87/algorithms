@@ -1,2 +1,5 @@
 .DS_Store
 *.jar
+/out/
+/algorithms.iml
+/.idea/
