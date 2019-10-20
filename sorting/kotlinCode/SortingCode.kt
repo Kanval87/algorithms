@@ -17,31 +17,53 @@ Please enter your choice ->""")
         //val input = Scanner(System.`in`)
         val (input) = readLine().toString().split(' ')
         selection = input.toInt()
+        println("Input array -> " + Arrays.toString(inputArray))
         when(selection){
             1 -> {
-                println("Insertion sort input array -> " + Arrays.toString(inputArray))
                 sortedArray = insertionSort(inputArray)
+            }
+            2 -> {
+                sortedArray = selectionSort(inputArray)
             }
             else -> println("Please enter number from 1 to 3")
         }
     }
-    println("sorted input array -> " + Arrays.toString(sortedArray))
+    println("Sorted input array -> " + Arrays.toString(sortedArray))
 }
 
 fun insertionSort(array : Array<Int>): Array<Int> {
     for(index in array.indices){
         when(index){
-            0 -> print("Skipping\n")
+            0 -> print("---------------------------\n")
             else -> {
                 var key = array[index]
                 var i = index - 1
-                while(i > -1 && key > array[i]){
+                while(i > -1 && key > array[i]){ // key ">" array[i]
+                    // > to sort in decending order we can switch it to < for ascending order
                     array[i + 1] = array[i]
                     i = i - 1
                 }
                 array[i + 1] = key
             }
         }
+    }
+    return array
+}
+
+fun selectionSort(array : Array<Int>) : Array<Int>{
+    for(index in array.indices){
+        println("${index} -> ${array[index]}" )
+        var variableA = array[index]
+        var variableB = array[index]
+        var i = index + 1
+        for(indexA in i .. array.size){
+            if(variableA < array[indexA - 1]){
+                variableB = variableA
+                variableA = array[indexA - 1]
+                array[indexA - 1] = variableB
+            }
+        }
+        array[index] = variableA
     }
     return array
 }
