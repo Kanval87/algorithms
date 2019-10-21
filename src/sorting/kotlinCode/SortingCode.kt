@@ -79,7 +79,7 @@ fun selectionSort(array: IntArray): IntArray {
 }
 
 fun mergeSort(p: Int, r: Int, array: IntArray): IntArray {
-    if ((r - p) > 1) {
+    if ((r - p) > 0) {
         var q = ((r - p) / 2) + p
         mergeSort(p, q, array)
         mergeSort(q + 1, r, array)
@@ -97,7 +97,7 @@ fun merge(p: Int, q: Int, r: Int, array: IntArray): IntArray {
         if (localQ >= arrayRight.size || (localP < arrayLeft.size && arrayLeft[localP] > arrayRight[localQ])) {
             array[index] = arrayLeft[localP]
             localP += 1
-        } else if ( localP >= arrayLeft.size || localQ < arrayRight.size) {
+        } else if (localP >= arrayLeft.size || localQ < arrayRight.size) {
             array[index] = arrayRight[localQ]
             localQ += 1
         }
