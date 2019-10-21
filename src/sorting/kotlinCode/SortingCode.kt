@@ -33,7 +33,7 @@ Please enter your choice ->""")
                 sortedArray = selectionSort(inputArray)
             }
             3 -> {
-                sortedArray = mergeSort(0, inputArray.size, inputArray)
+                sortedArray = mergeSort(0, inputArray.size - 1, inputArray)
             }
             else -> println("Please enter number from 1 to 3")
         }
@@ -79,11 +79,11 @@ fun selectionSort(array: IntArray): IntArray {
 }
 
 fun mergeSort(p: Int, r: Int, array: IntArray): IntArray {
-    if (array.size > 1) {
-        var q = (r - p) / 2
-        mergeSort(p, q, array.sliceArray(p..q))
-        mergeSort(q + 1, r, array.sliceArray((q + 1)..r))
-        merge(p, q, r, array.sliceArray(p..r))
+    if ((r - p) > 1) {
+        var q = ((r - p) / 2)
+        mergeSort(p, q, array)
+        mergeSort(q + 1, r, array)
+        merge(p, q, r, array)
     }
     return array
 }
@@ -93,17 +93,13 @@ fun merge(p: Int, q: Int, r: Int, array: IntArray): IntArray {
     var arrayRight: IntArray = array.sliceArray((q + 1)..r)
     var localP = 0
     var localQ = 0
-    var localK = 0
     for (index in p..r) {
-        if (localK <= array.size) {
-            if (arrayLeft[localP] > arrayRight[localQ]) {
-                array[localK] = arrayLeft[localP]
-                localP += localP
-            } else {
-                array[localK] = arrayLeft[localQ]
-                localQ += localQ
-            }
-            localK += localK
+        if (localP < arrayLeft.size && arrayLeft[localP] > arrayRight[localQ]) {
+            array[index] = arrayLeft[localP]
+            localP += 1
+        } else if (localQ < arrayRight.size) {
+            array[index] = arrayRight[localQ]
+            localQ += 1
         }
     }
     return array
