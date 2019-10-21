@@ -21,7 +21,7 @@ Please enter your choice ->""")
     var selection = 4
     var sortedArray = inputArray
     while (selection !in 1..3) {
-        //val input = Scanner(System.`in`)
+        // val input = Scanner(System.`in`)
         val (input) = readLine().toString().split(' ')
         selection = input.toInt()
         println("Input array -> " + Arrays.toString(inputArray))
@@ -31,6 +31,9 @@ Please enter your choice ->""")
             }
             2 -> {
                 sortedArray = selectionSort(inputArray)
+            }
+            3 -> {
+                sortedArray = mergeSort(0, inputArray.size, inputArray)
             }
             else -> println("Please enter number from 1 to 3")
         }
@@ -74,3 +77,17 @@ fun selectionSort(array: IntArray): IntArray {
     }
     return array
 }
+
+fun mergeSort(p: Int, r: Int, array: IntArray): IntArray {
+    var q = (r - p) / 2
+    mergeSort(p, q, array)
+    mergeSort(q, r, array)
+    merge(p, r, array)
+    return array
+}
+
+fun merge(p: Int, r: Int, array: IntArray): IntArray {
+    
+    return array
+}
+
