@@ -79,15 +79,33 @@ fun selectionSort(array: IntArray): IntArray {
 }
 
 fun mergeSort(p: Int, r: Int, array: IntArray): IntArray {
-    var q = (r - p) / 2
-    mergeSort(p, q, array)
-    mergeSort(q, r, array)
-    merge(p, r, array)
+    if (array.size > 1) {
+        var q = (r - p) / 2
+        mergeSort(p, q, array.sliceArray(p..q))
+        mergeSort(q + 1, r, array.sliceArray((q + 1)..r))
+        merge(p, q, r, array.sliceArray(p..r))
+    }
     return array
 }
 
-fun merge(p: Int, r: Int, array: IntArray): IntArray {
-    
+fun merge(p: Int, q: Int, r: Int, array: IntArray): IntArray {
+    var arrayLeft: IntArray = array.sliceArray(p..q)
+    var arrayRight: IntArray = array.sliceArray((q + 1)..r)
+    var localP = 0
+    var localQ = 0
+    var localK = 0
+    for (index in p..r) {
+        if (localK <= array.size) {
+            if (arrayLeft[localP] > arrayRight[localQ]) {
+                array[localK] = arrayLeft[localP]
+                localP += localP
+            } else {
+                array[localK] = arrayLeft[localQ]
+                localQ += localQ
+            }
+            localK += localK
+        }
+    }
     return array
 }
 
