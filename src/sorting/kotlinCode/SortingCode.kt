@@ -16,11 +16,13 @@ fun main() {
     println("""Enter 1 for Insertion Sort
 Enter 2 for Selection Sort
 Enter 3 for Merge Sort
+Enter 4 for Recursive insertion sort
 Please enter your choice ->""")
 
-    var selection = 4
+    var selectionLimit = 4
+    var selection = -1
     var sortedArray = inputArray
-    while (selection !in 1..3) {
+    while (selection !in 1..selectionLimit) {
         // val input = Scanner(System.`in`)
         val (input) = readLine().toString().split(' ')
         selection = input.toInt()
@@ -35,7 +37,10 @@ Please enter your choice ->""")
             3 -> {
                 sortedArray = mergeSort(0, inputArray.size - 1, inputArray)
             }
-            else -> println("Please enter number from 1 to 3")
+            4 -> {
+                sortedArray = (insertionRecursiveSort((inputArray.size - 1), LinkedList<Int>(inputArray.toList()))).toIntArray()
+            }
+            else -> println("Please enter number from 1 to $selectionLimit")
         }
     }
     println("Sorted input array -> " + Arrays.toString(sortedArray))
@@ -56,6 +61,25 @@ fun insertionSort(array: IntArray): IntArray {
                 array[i + 1] = key
             }
         }
+    }
+    return array
+}
+
+fun insertionRecursiveSort(p: Int, array: LinkedList<Int>): LinkedList<Int> {
+    if ((array.size - 1) >= p) {
+        var returnedArray : LinkedList<Int> = insertionRecursiveSort((p + 1), array)
+        var elementToAdd : Int = array.subList(0, p)[p - 1]
+        var firstPart : LinkedList<Int> = LinkedList(array.subList(0, p - 1))
+        for(index in returnedArray.indices){
+            if(!(returnedArray.get(index)  > elementToAdd)){
+                returnedArray.add(index + 1, elementToAdd)
+                break
+            }
+        }
+        var toReturn : LinkedList<Int> = LinkedList()
+        toReturn.addAll(firstPart) 
+        toReturn.addAll(returnedArray)
+        return toReturn
     }
     return array
 }
