@@ -12,21 +12,26 @@ fun main() {
             intArrayOf(7, 2, 8, 10, 5, 6)
     )
 //    val inputArray = arrays[5]
-    val inputArray = arrays[Random().nextInt(arrays.size)]
-    println("""Enter 1 for Insertion Sort
+    var selection = -1
+    while (selection != 9) {
+        val inputArray = arrays[Random().nextInt(arrays.size)]
+        println("""
+Enter 1 for Insertion Sort
 Enter 2 for Selection Sort
 Enter 3 for Merge Sort
-Enter 4 for Recursive insertion sort
-Please enter your choice ->""")
+Enter 4 for Progressive insertion sort
+Enter 9 to Exit
+Please enter your choice ->
+    """)
 
-    var selectionLimit = 4
-    var selection = -1
-    var sortedArray = inputArray
-    while (selection !in 1..selectionLimit) {
+
+        var selectionLimit = 4
+        var sortedArray = inputArray
+
         // val input = Scanner(System.`in`)
         val (input) = readLine().toString().split(' ')
         selection = input.toInt()
-        println("Input array -> " + Arrays.toString(inputArray))
+        println("Input array to Sort-> " + inputArray.contentToString())
         when (selection) {
             1 -> {
                 sortedArray = insertionSort(inputArray)
@@ -42,16 +47,20 @@ Please enter your choice ->""")
                 sortedArray = (progressiveInsertion(LinkedList<Int>(inputArray.toList())))
 
             }
-            else -> println("Please enter number from 1 to $selectionLimit")
+            9 -> {
+                println("Entered 9 to Exit")
+                return
+            }
+            else -> println("Please enter number from 1 to $selectionLimit to  perform sorting")
         }
+        println("Sorted input array -> " + sortedArray.contentToString())
     }
-    println("Sorted input array -> " + Arrays.toString(sortedArray))
 }
 
 fun insertionSort(array: IntArray): IntArray {
     for (index in array.indices) {
         when (index) {
-            0 -> print("---------------------------\n")
+            0 -> print("\n")
             else -> {
                 var key = array[index]
                 var i = index - 1
@@ -113,7 +122,6 @@ fun progressiveInsertionSort(elementToAdd: Int, list: LinkedList<Int>): LinkedLi
 
 fun selectionSort(array: IntArray): IntArray {
     for (index in array.indices) {
-        println("$index -> ${array[index]}")
         var variableA = array[index]
         var variableB: Int
         var i = index + 1
