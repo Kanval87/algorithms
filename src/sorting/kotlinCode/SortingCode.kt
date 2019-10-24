@@ -4,18 +4,16 @@ import java.util.*
 
 fun main() {
     val arrays: Array<IntArray> = arrayOf(
-            intArrayOf(1, 2, 3, 4, 5, 6),
-            intArrayOf(7, 2, 3, 8, 5, 6),
-            intArrayOf(9, 4, 2, 4, 5, 6),
-            intArrayOf(11, 12, 63, 74, 51, 62),
-            intArrayOf(3, 2, 1, 4, 5, 6),
-            intArrayOf(7, 2, 8, 10, 5, 6)
+            intArrayOf(1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6),
+            intArrayOf(7, 2, 3, 8, 5, 6, 7, 2, 3, 8, 5, 6, 7, 2, 3, 8, 5, 6, 7, 2, 3, 8, 5, 6, 7, 2, 3, 8, 5, 6),
+            intArrayOf(9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6),
+            intArrayOf(11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62),
+            intArrayOf(3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6),
+            intArrayOf(7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6)
     )
 //    val inputArray = arrays[5]
-    var selection = -1
-    while (selection != 9) {
-        val inputArray = arrays[Random().nextInt(arrays.size)]
-        println("""
+
+println("""
 Enter 1 for Insertion Sort
 Enter 2 for Selection Sort
 Enter 3 for Merge Sort
@@ -24,6 +22,9 @@ Enter 9 to Exit
 Please enter your choice ->
     """)
 
+    var selection = -1
+    while (selection != 9) {
+        val inputArray = arrays[Random().nextInt(arrays.size)].clone()
 
         var selectionLimit = 4
         var sortedArray = inputArray
@@ -32,6 +33,7 @@ Please enter your choice ->
         val (input) = readLine().toString().split(' ')
         selection = input.toInt()
         println("Input array to Sort-> " + inputArray.contentToString())
+        var currentTime = System.nanoTime()
         when (selection) {
             1 -> {
                 sortedArray = insertionSort(inputArray)
@@ -43,9 +45,8 @@ Please enter your choice ->
                 sortedArray = mergeSort(0, inputArray.size - 1, inputArray)
             }
             4 -> {
-                //sortedArray = (insertionRecursiveSort(1, LinkedList<Int>(inputArray.toList()))).toIntArray()
+                // sortedArray = (insertionRecursiveSort(1, LinkedList<Int>(inputArray.toList()))).toIntArray()
                 sortedArray = (progressiveInsertion(LinkedList<Int>(inputArray.toList())))
-
             }
             9 -> {
                 println("Entered 9 to Exit")
@@ -53,6 +54,7 @@ Please enter your choice ->
             }
             else -> println("Please enter number from 1 to $selectionLimit to  perform sorting")
         }
+        println("Time took -> " + (System.nanoTime() - currentTime))
         println("Sorted input array -> " + sortedArray.contentToString())
     }
 }
@@ -100,7 +102,7 @@ fun progressiveInsertion(array: LinkedList<Int>): IntArray {
     for (index in 0 until array.size) {
         var elementToAdd: Int = array[(array.size - (index + 1))]
         progressiveInsertionSort(elementToAdd, list)
-        //println(" $elementToAdd | $list ")
+        // println(" $elementToAdd | $list ")
     }
     return list.toIntArray()
 }
