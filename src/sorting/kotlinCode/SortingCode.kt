@@ -11,7 +11,7 @@ fun main() {
             intArrayOf(3, 2, 1, 4, 5, 6),
             intArrayOf(7, 2, 8, 10, 5, 6)
     )
-
+//    val inputArray = arrays[5]
     val inputArray = arrays[Random().nextInt(arrays.size)]
     println("""Enter 1 for Insertion Sort
 Enter 2 for Selection Sort
@@ -38,7 +38,9 @@ Please enter your choice ->""")
                 sortedArray = mergeSort(0, inputArray.size - 1, inputArray)
             }
             4 -> {
-                sortedArray = (insertionRecursiveSort((inputArray.size - 1), LinkedList<Int>(inputArray.toList()))).toIntArray()
+                //sortedArray = (insertionRecursiveSort(1, LinkedList<Int>(inputArray.toList()))).toIntArray()
+                sortedArray = (progressiveInsertion(LinkedList<Int>(inputArray.toList())))
+
             }
             else -> println("Please enter number from 1 to $selectionLimit")
         }
@@ -67,21 +69,46 @@ fun insertionSort(array: IntArray): IntArray {
 
 fun insertionRecursiveSort(p: Int, array: LinkedList<Int>): LinkedList<Int> {
     if ((array.size - 1) >= p) {
-        var returnedArray : LinkedList<Int> = insertionRecursiveSort((p + 1), array)
-        var elementToAdd : Int = array.subList(0, p)[p - 1]
-        var firstPart : LinkedList<Int> = LinkedList(array.subList(0, p - 1))
-        for(index in returnedArray.indices){
-            if(!(returnedArray.get(index)  > elementToAdd)){
+        var returnedArray: LinkedList<Int> = insertionRecursiveSort((p + 1), array)
+        var elementToAdd: Int = array.subList(0, p)[p - 1]
+        var firstPart: LinkedList<Int> = LinkedList(array.subList(0, p - 1))
+        for (index in returnedArray.indices) {
+            if (returnedArray[index] <= elementToAdd) {
                 returnedArray.add(index + 1, elementToAdd)
                 break
             }
         }
-        var toReturn : LinkedList<Int> = LinkedList()
-        toReturn.addAll(firstPart) 
+        var toReturn: LinkedList<Int> = LinkedList()
+        toReturn.addAll(firstPart)
         toReturn.addAll(returnedArray)
         return toReturn
     }
     return array
+}
+
+fun progressiveInsertion(array: LinkedList<Int>): IntArray {
+    var list: LinkedList<Int> = LinkedList()
+    for (index in 0 until array.size) {
+        var elementToAdd: Int = array[(array.size - (index + 1))]
+        progressiveInsertionSort(elementToAdd, list)
+        //println(" $elementToAdd | $list ")
+    }
+    return list.toIntArray()
+}
+
+fun progressiveInsertionSort(elementToAdd: Int, list: LinkedList<Int>): LinkedList<Int> {
+    if (list.size == 0) {
+        list.add(elementToAdd)
+    } else {
+        for (index in list.indices) {
+            if (list[index] < elementToAdd) { // < for descending and > for ascending
+                list.add(index, elementToAdd)
+                return list
+            }
+        }
+        list.addLast(elementToAdd)
+    }
+    return list
 }
 
 fun selectionSort(array: IntArray): IntArray {
