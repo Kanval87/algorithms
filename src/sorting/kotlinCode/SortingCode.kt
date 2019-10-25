@@ -4,32 +4,31 @@ import java.util.*
 
 fun main() {
     val arrays: Array<IntArray> = arrayOf(
-            intArrayOf(1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6),
-            intArrayOf(7, 2, 3, 8, 5, 6, 7, 2, 3, 8, 5, 6, 7, 2, 3, 8, 5, 6, 7, 2, 3, 8, 5, 6, 7, 2, 3, 8, 5, 6),
-            intArrayOf(9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6),
-            intArrayOf(11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62),
-            intArrayOf(3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6),
-            intArrayOf(7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6)
+            intArrayOf(1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6),
+            intArrayOf(7, 2, 4, 3, 1),
+            intArrayOf(9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6, 9, 4, 2, 4, 5, 6),
+            intArrayOf(11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62, 11, 12, 63, 74, 51, 62),
+            intArrayOf(3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6, 3, 2, 1, 4, 5, 6),
+            intArrayOf(7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6, 7, 2, 8, 10, 5, 6)
     )
 //    val inputArray = arrays[5]
 
-println("""
+    println("""
 Enter 1 for Insertion Sort
 Enter 2 for Selection Sort
 Enter 3 for Merge Sort
 Enter 4 for Progressive insertion sort
+Enter 5 for Recursive insertion sort
 Enter 9 to Exit
 Please enter your choice ->
     """)
 
     var selection = -1
+    var selectionLimit = 5
     while (selection != 9) {
+//        val inputArray = arrays[3].clone()
         val inputArray = arrays[Random().nextInt(arrays.size)].clone()
-
-        var selectionLimit = 4
         var sortedArray = inputArray
-
-        // val input = Scanner(System.`in`)
         val (input) = readLine().toString().split(' ')
         selection = input.toInt()
         println("Input array to Sort-> " + inputArray.contentToString())
@@ -45,8 +44,10 @@ Please enter your choice ->
                 sortedArray = mergeSort(0, inputArray.size - 1, inputArray)
             }
             4 -> {
-                // sortedArray = (insertionRecursiveSort(1, LinkedList<Int>(inputArray.toList()))).toIntArray()
                 sortedArray = (progressiveInsertion(LinkedList<Int>(inputArray.toList())))
+            }
+            5 -> {
+                sortedArray = (insertionRecursiveSort(LinkedList<Int>(inputArray.toList()))).toIntArray()
             }
             9 -> {
                 println("Entered 9 to Exit")
@@ -78,23 +79,31 @@ fun insertionSort(array: IntArray): IntArray {
     return array
 }
 
-fun insertionRecursiveSort(p: Int, array: LinkedList<Int>): LinkedList<Int> {
-    if ((array.size - 1) >= p) {
-        var returnedArray: LinkedList<Int> = insertionRecursiveSort((p + 1), array)
-        var elementToAdd: Int = array.subList(0, p)[p - 1]
-        var firstPart: LinkedList<Int> = LinkedList(array.subList(0, p - 1))
-        for (index in returnedArray.indices) {
-            if (returnedArray[index] <= elementToAdd) {
-                returnedArray.add(index + 1, elementToAdd)
+fun insertionRecursiveSort(array: LinkedList<Int>): LinkedList<Int> {
+    if (array.size == 2) {
+        val valueToInsert = array.removeFirst()
+        if (array[0] > valueToInsert) {
+            array.addLast(valueToInsert)
+        } else {
+            array.addFirst(valueToInsert)
+        }
+        return array
+    } else {
+        val valueToInsert: Int = array.removeFirst()
+        insertionRecursiveSort(array)
+        var hasValueAdded = false
+        for ((index, value) in array.withIndex()) {
+            if (value < valueToInsert) {
+                array.add(index, valueToInsert)
+                hasValueAdded = true;
                 break
             }
         }
-        var toReturn: LinkedList<Int> = LinkedList()
-        toReturn.addAll(firstPart)
-        toReturn.addAll(returnedArray)
-        return toReturn
+        if (!hasValueAdded) {
+            array.addLast(valueToInsert)
+        }
+        return array
     }
-    return array
 }
 
 fun progressiveInsertion(array: LinkedList<Int>): IntArray {
