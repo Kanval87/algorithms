@@ -176,6 +176,11 @@ Please enter your choice ->
         }
         return array
     }
+
+    fun getSortedArray() : IntArray{
+        var unsortedArray = arrays[1].clone()
+        return (insertionRecursiveSort(LinkedList(unsortedArray.toList()))).toIntArray()
+    }
 }
 
 fun main() {
