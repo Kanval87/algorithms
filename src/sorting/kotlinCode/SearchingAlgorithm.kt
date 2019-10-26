@@ -1,9 +1,11 @@
 package sorting.kotlinCode
 
+import java.util.*
+
 class SearchingAlgorithm {
     private var sortingCode = SortingCode()
     fun run() {
-        var numToSearch: Int = 4
+        var numToSearch: Int = Random().nextInt(12)
         var arrayToSearchIn = sortingCode.getSortedArray()
         var foundAt = binarySearch(numToSearch, arrayToSearchIn)
         if (foundAt == -1) {
@@ -14,15 +16,14 @@ class SearchingAlgorithm {
     }
 
     private fun binarySearch(numToSearch: Int, sortedArray: IntArray): Int {
+        println("Checking $numToSearch in ${sortedArray.contentToString()}")
         if (sortedArray.isNotEmpty()) {
             var midIndex = sortedArray.size / 2
             var midNum = sortedArray[midIndex]
-            if (midNum > numToSearch) {
-                return binarySearch(numToSearch, sortedArray.sliceArray((midIndex + 1) until sortedArray.size))
-            } else if (midNum == numToSearch) {
-                return 1
-            } else {
-                return binarySearch(numToSearch, sortedArray.sliceArray(0..midIndex))
+            when {
+                midNum > numToSearch -> return binarySearch(numToSearch, sortedArray.sliceArray((midIndex + 1) until sortedArray.size))
+                midNum == numToSearch -> return 1
+                else -> return binarySearch(numToSearch, sortedArray.sliceArray(0 until midIndex))
             }
         } else {
             return -1

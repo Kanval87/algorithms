@@ -177,8 +177,9 @@ Please enter your choice ->
         return array
     }
 
-    fun getSortedArray() : IntArray{
-        var unsortedArray = arrays[1].clone()
+    fun getSortedArray(): IntArray {
+        var unsortedArray = arrays[Random().nextInt(arrays.size)].clone()
+//        var unsortedArray = arrays[2].clone()
         return (insertionRecursiveSort(LinkedList(unsortedArray.toList()))).toIntArray()
     }
 }
