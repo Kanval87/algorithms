@@ -5,28 +5,40 @@ import java.util.*
 class SearchingAlgorithm {
     private var sortingCode = SortingCode()
     fun run() {
-        var numToSearch: Int = Random().nextInt(12)
+        var numToSearch: Int = /*Random().nextInt(7)*/ 2
         var arrayToSearchIn = sortingCode.getSortedArray()
-        var foundAt = binarySearch(numToSearch, arrayToSearchIn)
-        if (foundAt == -1) {
+        var result = binarySearch(numToSearch, arrayToSearchIn, 0)
+        if (!result.hasFoundNum) {
             println("could not find $numToSearch in ${arrayToSearchIn.contentToString()}")
         } else {
-            println("found $numToSearch in ${arrayToSearchIn.contentToString()}")
+            println("found $numToSearch at ${result.numberFoundAt} in ${arrayToSearchIn.contentToString()}")
         }
     }
 
-    private fun binarySearch(numToSearch: Int, sortedArray: IntArray): Int {
+    private fun binarySearch(numToSearch: Int, sortedArray: IntArray, midNumberParam: Int): ResultAndIndex {
         println("Checking $numToSearch in ${sortedArray.contentToString()}")
         if (sortedArray.isNotEmpty()) {
             var midIndex = sortedArray.size / 2
             var midNum = sortedArray[midIndex]
             when {
-                midNum > numToSearch -> return binarySearch(numToSearch, sortedArray.sliceArray((midIndex + 1) until sortedArray.size))
-                midNum == numToSearch -> return 1
-                else -> return binarySearch(numToSearch, sortedArray.sliceArray(0 until midIndex))
+                midNum > numToSearch -> return binarySearch(numToSearch, sortedArray.sliceArray((midIndex + 1) until sortedArray.size), midNumberParam + midIndex)
+                midNum == numToSearch -> return ResultAndIndex(true, midNumberParam + midIndex)
+                else -> return binarySearch(numToSearch, sortedArray.sliceArray(0 until midIndex), midNumberParam)
             }
         } else {
-            return -1
+            return ResultAndIndex(false, 0)
+        }
+    }
+
+    /*  Supporting classes  */
+
+    class ResultAndIndex {
+        var hasFoundNum: Boolean = false
+        var numberFoundAt: Int = -1
+
+        constructor(hasFound: Boolean, atIndex: Int) {
+            hasFoundNum = hasFound
+            numberFoundAt = atIndex
         }
     }
 }
