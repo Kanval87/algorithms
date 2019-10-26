@@ -18,14 +18,15 @@ class SearchingAlgorithm {
             var midIndex = sortedArray.size / 2
             var midNum = sortedArray[midIndex]
             if (midNum > numToSearch) {
-                binarySearch(numToSearch, sortedArray.sliceArray((midIndex + 1) until sortedArray.size))
+                return binarySearch(numToSearch, sortedArray.sliceArray((midIndex + 1) until sortedArray.size))
             } else if (midNum == numToSearch) {
                 return 1
             } else {
-                binarySearch(numToSearch, sortedArray.sliceArray(0..midIndex))
+                return binarySearch(numToSearch, sortedArray.sliceArray(0..midIndex))
             }
+        } else {
+            return -1
         }
-        return -1
     }
 }
 
