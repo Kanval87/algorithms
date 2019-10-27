@@ -27,21 +27,39 @@ class SearchingAlgorithm {
     private fun binarySearch(numToSearch: Int, sortedArray: IntArray, midNumberParam: Int, isFromRight: Boolean): ResultAndIndex {
         println("Checking $numToSearch with indexTrack $midNumberParam in ${sortedArray.contentToString()} coming from Right -> $isFromRight")
         if (sortedArray.isNotEmpty()) {
-            var midIndex = sortedArray.size / 2
-            var midNum = sortedArray[midIndex]
-            when {
-                midNum > numToSearch -> return binarySearch(numToSearch, sortedArray.sliceArray((midIndex + 1) until sortedArray.size), midNumberParam + midIndex, true)
-                midNum == numToSearch -> /*return ResultAndIndex(true, midNumberParam + midIndex)*/
-                                        if (isFromRight) {
-                                            return ResultAndIndex(true, midNumberParam + midIndex + 1)
-                                        } else {
-                                            return ResultAndIndex(true, midNumberParam + midIndex)
-                                        }
-                else -> return binarySearch(numToSearch, sortedArray.sliceArray(0 until midIndex), midNumberParam, false)
+            val midIndex: Int
+            if (sortedArray.size % 2 == 0) {
+                midIndex = (sortedArray.size / 2) - 1
+                when {
+                    sortedArray[midIndex] <= numToSearch -> {
+                        var slicedArray = sortedArray.sliceArray(0 until midIndex + 1)
+                        return binarySearch(numToSearch, slicedArray, midNumberParam, false)
+                    }
+                    sortedArray[midIndex + 1] >= numToSearch -> {
+                        var slicedArray = sortedArray.sliceArray(midIndex + 1 until sortedArray.size)
+                        return binarySearch(numToSearch, slicedArray, midNumberParam + midIndex, true)
+                    }
+                }
+            } else {
+                midIndex = sortedArray.size / 2
+                when {
+                    sortedArray[midIndex] == numToSearch -> return ResultAndIndex(true, midNumberParam + midIndex)
+                    sortedArray[midIndex] <= numToSearch -> return binarySearch(numToSearch, sortedArray.sliceArray(0 until midIndex), midNumberParam, false)
+                    sortedArray[midIndex] >= numToSearch -> return binarySearch(numToSearch, sortedArray.sliceArray(midIndex + 1 until sortedArray.size), midNumberParam + midIndex, true)
+                }
             }
-        } else {
-            return ResultAndIndex(false, 0)
         }
+        return ResultAndIndex(false, 0)
+//            when {
+//                midNum > numToSearch -> return binarySearch(numToSearch, sortedArray.sliceArray((midIndex + 1) until sortedArray.size), midNumberParam + midIndex, true)
+//                midNum == numToSearch -> /*return ResultAndIndex(true, midNumberParam + midIndex)*/
+//                    if (isFromRight) {
+//                        return ResultAndIndex(true, midNumberParam + midIndex + 1)
+//                    } else {
+//                        return ResultAndIndex(true, midNumberParam + midIndex)
+//                    }
+//                else -> return binarySearch(numToSearch, sortedArray.sliceArray(0 until midIndex), midNumberParam, false)
+//            }
     }
 
     /*  Supporting classes  */
