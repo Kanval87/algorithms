@@ -5,7 +5,7 @@ import java.util.*
 class SearchingAlgorithm {
     private var sortingCode = SortingCode()
     fun run() {
-        var numToSearch: Int = /*Random().nextInt(7)*/ 2
+        var numToSearch: Int = Random().nextInt(7)  //2
         var arrayToSearchIn = sortingCode.getSortedArray().clone()
 
 //        for ((index, value) in arrayToSearchIn.withIndex()) {
