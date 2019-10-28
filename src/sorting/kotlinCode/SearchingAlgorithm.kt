@@ -8,29 +8,43 @@ class SearchingAlgorithm {
         var numToSearch: Int = /*Random().nextInt(7)*/ 2
         var arrayToSearchIn = sortingCode.getSortedArray().clone()
 
-        for ((index, value) in arrayToSearchIn.withIndex()) {
-            var arrayToSearchIn = sortingCode.getSortedArray().clone()
-            var result = binarySearchWithIndex(value, arrayToSearchIn, 0, false)
-//            var result = binarySearch(value, arrayToSearchIn, 0, false)
-            if (!result.hasFoundNum) {
-                println("could not find $value in ${arrayToSearchIn.contentToString()}")
+//        for ((index, value) in arrayToSearchIn.withIndex()) {
+//            var arrayToSearchIn = sortingCode.getSortedArray().clone()
+//            // var result = binarySearchWithIndex(value, arrayToSearchIn, 0, false)
+//            var result = binarySearch(arrayToSearchIn, 0, arrayToSearchIn.size - 1, value)
+//            if (!result.hasFoundNum) {
+//                println("could not find $value in ${arrayToSearchIn.contentToString()}")
+//            } else {
+//                println("found $value at ${result.numberFoundAt} in ${arrayToSearchIn.contentToString()}")
+//            }
+//        }
+
+        var result = binarySearch(arrayToSearchIn, 0, arrayToSearchIn.size - 1, numToSearch)
+        if (!result.hasFoundNum) {
+            println("could not find $numToSearch in ${arrayToSearchIn.contentToString()}")
+        } else {
+            println("found $numToSearch at ${result.numberFoundAt} in ${arrayToSearchIn.contentToString()}")
+        }
+    }
+
+    private fun binarySearch(array: IntArray, low: Int, high: Int, target: Int): ResultAndIndex {
+        if (low > high) {
+            return ResultAndIndex(false, -1)
+        } else {
+            var midpoint = low + (high - low) / 2
+            if (target == array[midpoint]) {
+                return ResultAndIndex(true, midpoint)
+            } else if (target > array[midpoint]) {
+                return binarySearch(array, low, midpoint - 1, target)
             } else {
-                println("found $value at ${result.numberFoundAt} in ${arrayToSearchIn.contentToString()}")
+                return binarySearch(array, midpoint + 1, high, target)
             }
         }
-
-//        var result = binarySearch(numToSearch, arrayToSearchIn, 0, false)
-//        if (!result.hasFoundNum) {
-//            println("could not find $numToSearch in ${arrayToSearchIn.contentToString()}")
-//        } else {
-//            println("found $numToSearch at ${result.numberFoundAt} in ${arrayToSearchIn.contentToString()}")
-//        }
     }
 
-    private fun binarySearch() : ResultAndIndex{
-        return ResultAndIndex( true , 0)
-    }
-
+    /**
+     * wrote below logic on my own.... would like to fix it.
+     */
     private fun binarySearchWithIndex(numToSearch: Int, sortedArray: IntArray, midNumberParam: Int, isFromRight: Boolean): ResultAndIndex {
         println("Checking $numToSearch with indexTrack $midNumberParam in ${sortedArray.contentToString()} coming from Right -> $isFromRight")
         if (sortedArray.isNotEmpty()) {
@@ -77,7 +91,6 @@ class SearchingAlgorithm {
         }
         return ResultAndIndex(false, 0)
     }
-
 
 
     /*  Supporting classes  */
