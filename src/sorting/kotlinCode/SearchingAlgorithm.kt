@@ -3,7 +3,7 @@ package sorting.kotlinCode
 import java.util.*
 
 class SearchingAlgorithm {
-    private var sortingCode = SortingCode()
+    private var sortingCode = sorting.kotlinCode.SortingCode() // TODO this line causing some issues for it to run in VScode
     fun run() {
         var numToSearch: Int = Random().nextInt(7)  //2
         var arrayToSearchIn = sortingCode.getSortedArray().clone()

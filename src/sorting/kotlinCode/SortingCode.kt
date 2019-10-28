@@ -2,7 +2,7 @@ package sorting.kotlinCode
 
 import java.util.*
 
-class SortingCode {
+public class SortingCode {
 
     private val arrays: Array<IntArray> = arrayOf(
             intArrayOf(1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6),
